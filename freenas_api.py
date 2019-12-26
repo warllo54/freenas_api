@@ -62,3 +62,12 @@ class FreeNASAPI:
         
         return json.dumps(data)
 
+    def listsystemready(self):
+        status, content = self.requests('GET', 'system/ready')
+
+        data = {}
+        data['status'] = str(status)
+        data['data'] = json.loads(content)
+        
+        return json.dumps(data)
+
