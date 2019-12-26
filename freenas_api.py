@@ -26,7 +26,7 @@ class FreeNASAPI:
 
         if type == 'POST':
             req = requests.post(
-            '' + self.method + '://' + self.host + ':' + self.port + '/api/v1.0/'+ url + '/',
+            '' + self.method + '://' + self.host + ':' + self.port + '/api/v2.0/'+ url + '/',
             headers={'Content-Type': 'application/json'},
             auth=( self.user, self.password ),
             verify=False,
@@ -35,7 +35,7 @@ class FreeNASAPI:
 
         if type == 'DELETE':
             req = requests.delete(
-            '' + self.method + '://' + self.host + ':' + self.port + '/api/v1.0/'+ url + '/',
+            '' + self.method + '://' + self.host + ':' + self.port + '/api/v2.0/'+ url + '/',
             headers={'Content-Type': 'application/json'},
             auth=( self.user, self.password ),
             verify=False,
@@ -46,6 +46,15 @@ class FreeNASAPI:
 
     def listnetworkconfig(self):
         status, content = self.requests('GET', 'network/configuration')
+
+        data = {}
+        data['status'] = str(status)
+        data['data'] = json.loads(content)
+        
+        return json.dumps(data)
+
+    def listnetworksummary(self):
+        status, content = self.requests('GET', 'network/general/summary')
 
         data = {}
         data['status'] = str(status)
