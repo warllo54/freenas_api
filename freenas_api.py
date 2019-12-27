@@ -49,7 +49,7 @@ class FreeNASAPI:
 
         data = {}
         data['status'] = str(status)
-        data['data'] = json.loads(content)
+        data['networkconfig'] = json.loads(content)
         
         return json.dumps(data)
 
@@ -58,7 +58,7 @@ class FreeNASAPI:
 
         data = {}
         data['status'] = str(status)
-        data['data'] = json.loads(content)
+        data['networksummary'] = json.loads(content)
         
         return json.dumps(data)
 
@@ -67,7 +67,24 @@ class FreeNASAPI:
 
         data = {}
         data['status'] = str(status)
-        data['data'] = json.loads(content)
+        data['systemready'] = json.loads(content)
         
         return json.dumps(data)
 
+    def listalerts(self):
+        status, content = self.requests('GET', 'alert/list')
+
+        data = {}
+        data['status'] = str(status)
+        data['alerts'] = json.loads(content)
+        
+        return json.dumps(data)
+
+    def listjails(self):
+        status, content = self.requests('GET', 'jail')
+
+        data = {}
+        data['status'] = str(status)
+        data['jails'] = json.loads(content)
+        
+        return json.dumps(data)
